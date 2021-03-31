@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Creatinine Clearance Calculators</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<h1 class="page-header">Creatinine Clearance Calculators</h1>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<form class="form form-horizontal" id="demoform">
+					<div class="panel panel-primary">
+	                    <div class="panel-heading">Demographics</div>
+	                    <div class="panel-body">
+	                        <div class="form-group">
+	                            <label for="txtAge" class="col-sm-4">Age</label>
+	                            <input type="text" class="col-sm-2" name="age" id="txtAge" class="text-input" value="62">
+	                            <div class="col-sm-6"></div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label class="col-sm-4">Sex</label>
+	                            <div class="radio col-sm-8">
+	                                <label><input type="radio" name="sex" value="M" checked="checked" id="chksex_m"> M</label>
+	                                <label><input type="radio" name="sex" value="F" id="chksex_f"> F</label>
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">Race</label>
+	                        	<div class="radio col-sm-8">
+		                        	<label><input type="radio" name="race" value="nonaa" checked="checked"> Not African American</label>
+		                        	<label><input type="radio" name="race" value="aa"> African American</label>
+		                        </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="txtHeight" class="col-sm-4">Height</label>
+	                            <input type="text" class="col-sm-3" name="height" id="txtHeight" value="177.8">
+	                            <div class="col-sm-5">
+	                                <input type="radio" name="height-units" value="cm" checked="checked" id="chkht_cm"> cm
+	                                <input type="radio" name="height-units" value="in" id="chkht_in"> in
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="txtWeight" class="col-sm-4">Weight</label>
+	                            <input type="text" class="col-sm-3" name="Weight" id="txtWeight" value="79.5">
+	                            <div class="col-sm-5">
+	                                <input type="radio" name="weight-units" value="kg" checked="checked" id="chkwt_kg"> kg
+	                                <input type="radio" name="weight-units" value="lb" id="chkwt_lb"> lb
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label for="txtScr" class="col-sm-4">Serum Creatinine</label>
+	                        	<input type="text" class="col-sm-3" name="Creatinine" id="txtScr" value="3.8">
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">Round?</label>
+	                        	<label><input type="checkbox" name="chkRound" id="chkRound" checked="checked"> 
+	                        	Round Scr to 1 if Age >65</label>
+	                        </div>
+	                        <div class="form-group">
+	                            <div class="col-sm-4">
+	                                <button type="button" id="btnCalcDemos" class="btn btn-primary btn-xs">Calculate</button>
+	                                <button type="button" id="btnResetData" class="btn btn-danger btn-xs">Reset</button>
+	                            </div>
+	                        </div>
+	                    </div>
+	                </div>
+				</form>
+			</div>
+			
+			<div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Calculated Info</div>
+                <div class="panel-body">
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-1">IBW</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="ibw" id="ibw">
+                            </div>
+                            <label class="col-sm-1">BSA</label>
+                             <div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="bsa" id="bsa">
+                            </div>
+                        </div>
+                        <h5>Creatinine Clearances</h5>
+                        <div class="form-group">
+                        	<label class="col-sm-3">Cockcroft-Gault</label>
+                        	<div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="cg-tbw" id="cg-tbw">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-3">Cockcroft-Gault IBW</label>
+                        	<div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="cg-ibw" id="cg-ibw">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-3">Cockcroft-Gault BSA</label>
+                        	<div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="cg-bsa" id="cg-bsa">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-3">MDRD 4 Variable</label>
+                        	<div class="col-sm-4">
+                        		<input type="text" class="calcDemoBox" name="mdrd" id="mdrd">
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-3">Salazar-Corcoran</label>
+                        	<div class="col-sm-4">
+                        		<input type="text" class="calcDemoBox" name="salazar" id="salazar">
+                        	</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+			
+		</div>
+	</div>
+	<script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/patient.js"></script>
+    <script src="js/code.js"></script>
+    <script type="text/javascript">
+    patient = new Patient();
+    $(document).ready(function() {
+    	$("#btnCalcDemos").on('click', function(ev) {
+    		sex = $("#demoform input[name='sex']:checked").val()
+            age = parseInt($("#txtAge").val());
+    		scr = parseFloat($("#txtScr").val());
+            height = parseFloat($("#txtHeight").val());
+            race = $("#demoform input[name='race']:checked").val()
+            htunit = $("#demoform input[name='height-units']:checked").val()
+            weight = parseFloat($("#txtWeight").val());
+            wtunit = $("#demoform input[name='weight-units']:checked").val()
+            if ($("#chkRound").prop('checked')) {
+            	console.log('Rounding on');
+            	if (age > 65 && scr < 1.0) {
+            		scr = 1.0;
+            	}
+            }
+            patient.setSex(sex).setHeight(height, htunit).setWeight(weight, wtunit);
+            patient.setAge(age).calculateBSA();
+            // console.log(patient);
+            
+            $("#ibw").val(patient.ibw);
+            $("#bsa").val(round(patient.bsa, 2));
+            // C-G TBW
+            c = (140 - patient.age)*patient.weight / (72 * scr)
+            c = (sex == 'M') ? c : c * 0.85;
+            $("#cg-tbw").val(round(c, 3));
+            // C-G IBW
+            wt = (patient.weight < patient.ibw) ? patient.weight : patient.ibw;
+            c = (140 - patient.age)*wt / (72 * scr)
+            c = (sex == 'M') ? c : c * 0.85;
+            $("#cg-ibw").val(round(c, 3));
+            // C-G BSA
+            c = (140 - patient.age)*patient.ibw / (72 * scr)
+            c = (sex == 'M') ? c : c * 0.85;
+            c = c * 1.73/patient.bsa;
+            $("#cg-bsa").val(round(c, 3));
+            
+            // MDRD 4 variable
+            md = 175 * Math.pow(scr, -1.154) * Math.pow(patient.age, -0.203);
+            if (patient.sex == 'F') {
+            	md = md * 0.742;
+            }
+            if (race == 'aa') {
+            	md = md * 1.212;
+            }
+            $("#mdrd").val(round(md, 2));
+            // Salazar
+            if (patient.sex == 'M') {
+            	sc = (137 - patient.age) * ( (0.285 * patient.weight) + (12.1 * patient.height/100 * patient.height/100)) / (51 * scr);
+            } else {
+            	sc = (146 - patient.age) * ( (0.287 * patient.weight) + (9.74 * patient.height/100 * patient.height/100)) / (60 * scr);
+            }
+            $("#salazar").val(round(sc, 2));
+            	
+    	});
+    });
+    </script>
+</body>
+</html>

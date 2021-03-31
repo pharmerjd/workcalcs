@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Vancomycin Calculator</title>
+	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+	<h1 class="page-header">Kinetics Calculator</h1>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-4">
+				<form class="form form-horizontal" id="demoform">
+					<div class="panel panel-primary">
+	                    <div class="panel-heading">Demographics</div>
+	                    <div class="panel-body">
+	                        <div class="form-group">
+	                            <label for="txtAge" class="col-sm-4">Age</label>
+	                            <div class="col-sm-8">
+		                            <input type="text" class="col-sm-5" name="age" id="txtAge" class="text-input" value="">
+		                        </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label class="col-sm-4">Sex</label>
+	                            <div class="radio col-sm-8">
+	                                <label><input type="radio" name="sex" value="M" checked="checked" id="chksex_m"> M</label>
+	                                <label><input type="radio" name="sex" value="F" id="chksex_f"> F</label>
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="txtHeight" class="col-sm-4">Height</label>
+	                            <div class="col-sm-8">
+		                            <input type="text" class="col-sm-4" name="height" id="txtHeight" value="">
+		                            <div class="col-sm-6">
+		                                <input type="radio" name="height-units" value="cm" checked="checked" id="chkht_cm"> cm
+		                                <input type="radio" name="height-units" value="in" id="chkht_in"> in
+		                            </div>
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                            <label for="txtWeight" class="col-sm-4">Weight</label>
+	                            <div class="col-sm-8">
+		                            <input type="text" class="col-sm-4" name="Weight" id="txtWeight" value="">
+		                            <div class="col-sm-5">
+		                                <input type="radio" name="weight-units" value="kg" checked="checked" id="chkwt_kg"> kg
+		                                <input type="radio" name="weight-units" value="lb" id="chkwt_lb"> lb
+		                            </div>
+		                        </div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label for="txtScr" class="col-sm-4">Serum Creatinine</label>
+	                        	<div class="col-sm-8">
+	                        		<input type="text" class="col-sm-3" name="Creatinine" id="txtScr" value="">
+	                        	</div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">Round?</label>
+	                        	<div class="col-sm-8">
+		                        	<label><input type="checkbox" name="chkRound" id="chkRound" checked="checked"> 
+		                        	Round Scr to 1 if Age >65</label>
+		                        </div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">Drug</label>
+	                        	<div class="col-sm-8">
+	                        		<label><input type="radio" name="drug" value="vanc" checked="checked">Vanco</label>
+	                        		<div class="sr-only">
+	                        		<label><input type="radio" name="drug" value="tobra">Gent/Tobra</label>
+	                        		<label><input type="radio" name="drug" value="amikacin">Amikacin</label>
+	                        		</div>
+	                        	</div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">V<sub>d</sub></label>
+	                        	<div class="col-sm-8">
+	                        		<input type="text" name="vdest" id="vdest" class="col-sm-3" value="0.7"> L/kg
+	                        	</div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">Infusion Time</label>
+	                        	<div class="col-sm-8">
+	                        		<input type="text" name="ti" id="ti" class="col-sm-3" value="1.0"> hr
+	                        	</div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">Target Peak</label>
+	                        	<div class="col-sm-8">
+	                        		<input type="text" name="tpeak" id="tpeak" class="col-sm-3" value="35">
+	                        	</div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<label class="col-sm-4">Target Trough</label>
+	                        	<div class="col-sm-8">
+	                        		<input type="text" name="ttr" id="ttr" class="col-sm-3" value="12">
+	                        	</div>
+	                        </div>
+	                        <div class="form-group">
+	                            <div class="col-sm-4">
+	                                <button type="button" id="btnCalcDemos" class="btn btn-primary btn-xs">Calculate</button>
+	                                <button type="button" id="btnResetData" class="btn btn-danger btn-xs">Reset</button>
+	                            </div>
+	                        </div>
+	                        <div class="form-group">
+	                        	<b>If pt 60 or older, don't dose more frequently than Q18H empirically.</b>
+	                        	<br />
+	                        	<b>If pt 70 or older, don't dose more frequently than Q24H empirically.</b>
+                        	</div>
+	                    </div>
+	                </div>
+				</form>
+			</div>
+			
+			<div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Calculated Info</div>
+                <div class="panel-body">
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-1">IBW</label>
+                            <div class="col-sm-3">
+                                <input type="text" class="calcDemoBox" name="ibw" id="ibw">
+                            </div>
+                            <label class="col-sm-1">BSA</label>
+                             <div class="col-sm-3">
+                                <input type="text" class="calcDemoBox" name="bsa" id="bsa">
+                            </div>
+                            <label class="col-sm-1">CrCl</label>
+                             <div class="col-sm-3">
+                                <input type="text" class="calcDemoBox" name="crcl" id="crcl">
+                            </div>
+                        </div>
+                        <h5>Kinetic Parameters</h5>
+                        <div class="form-group">
+                        	<label class="col-sm-1">V<sub>d</sub></label>
+                        	<div class="col-sm-3">
+                                <input type="text" class="calcDemoBox" name="calc_vd" id="calc_vd">
+                            </div>
+                            <label class="col-sm-1">k<sub>el</sub></label>
+                        	<div class="col-sm-3">
+                                <input type="text" class="calcDemoBox" name="calc_kel" id="calc_kel">
+                            </div>
+                            <label class="col-sm-1">t<sub>1/2</sub></label>
+                        	<div class="col-sm-3">
+                                <input type="text" class="calcDemoBox" name="calc_t2" id="calc_t2">
+                            </div>
+                        </div>
+                        <h5>Estimated Dose</h5>
+                        <div class="form-group">
+                        	<label class="col-sm-2">Est Dose</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox" name="calc_estdose" id="calc_estdose">
+                        	</div>
+                        	<label class="col-sm-2">Est Freq</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox" name="calc_estfreq" id="calc_estfreq">
+                        	</div>
+                        </div>
+                        <h3>Your Regimen</h3>
+                        <div class="form-group">
+                        	<label class="col-sm-2">Dose (mg)</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox needsinput" name="mydose" id="mydose">
+                        	</div>
+                        	<label class="col-sm-2">Freq (hrs)</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox needsinput" name="myinterval" id="myinterval">
+                        	</div>
+                        	<div class="col-sm-2">
+                        		<button class="btn btn-xs btn-success" id="btnCalcFinal" type="button">Calc</button>
+                        	</div>
+                        </div>
+                        <h5>Predicted Levels</h5>
+                        <div class="form-group">
+                        	<label class="col-sm-1">Peak</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox" name="calc_pk" id="calc_pk">
+                        	</div>
+                        	<label class="col-sm-1">Trough</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox" name="calc_tr" id="calc_tr">
+                        	</div>
+                        	<label class="col-sm-1">mg/kg</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox" name="calc_mgkg" id="calc_mgkg">
+                        	</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+			
+		</div>
+	</div>
+	<script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/patient.js"></script>
+    
+    <script src="js/code.js"></script><script type="text/javascript">
+    patient = new Patient();
+    // List of valid intervals in hours - the script will use these dosing intervals for
+    // its estimates
+    validints = [8, 12, 18, 24, 30, 36, 42, 48, 60, 72];
+    vd = null;
+    kel = null;
+    $(document).ready(function() {
+    	$("#btnCalcDemos").on('click', function(ev) {
+    		sex = $("#demoform input[name='sex']:checked").val()
+            age = parseInt($("#txtAge").val());
+    		scr = parseFloat($("#txtScr").val());
+            height = parseFloat($("#txtHeight").val());
+            htunit = $("#demoform input[name='height-units']:checked").val()
+            weight = parseFloat($("#txtWeight").val());
+            wtunit = $("#demoform input[name='weight-units']:checked").val()
+            drug = $("#demoform input[name='drug']:checked").val()
+            vdest = parseFloat($("#vdest").val());
+            ti = parseFloat($("#ti").val());
+            tpeak = parseFloat($("#tpeak").val());
+            ttr = parseFloat($("#ttr").val());
+            // console.log(vdest, ti, tpeak, ttr);
+            if ($("#chkRound").prop('checked')) {
+            	// console.log('Rounding on');
+            	if (age > 65 && scr < 1.0) {
+            		scr = 1.0;
+            	}
+            }
+            patient.setSex(sex).setHeight(height, htunit).setWeight(weight, wtunit);
+            patient.setAge(age).calculateBSA();
+            
+            $("#ibw").val(round(patient.ibw, 2));
+            $("#bsa").val(round(patient.bsa, 2));
+			
+            // C-G IBW
+            wt = (patient.weight < patient.ibw) ? patient.weight : patient.ibw;
+            c = (140 - patient.age)*wt / (72 * scr)
+            c = (sex == 'M') ? c : c * 0.85;
+            $("#crcl").val(round(c, 3));
+            
+            vd = vdest * patient.weight;
+            $("#calc_vd").val(vd);
+            kel = round(getKel(drug, c), 4);
+            $("#calc_kel").val(kel);
+            t2 = round(0.693/kel, 2);
+            $("#calc_t2").val(t2);
+            intv = nextVancInterval(validints, t2);
+            $("#calc_estfreq").val(intv + ' hrs');
+            // Calculate estimated dose for the interval given
+            d = tpeak * ti * vd * kel * (1 - Math.exp(-1 * kel * intv)) / 
+            	( (1 - Math.exp(-1*kel*ti)) * (Math.exp(-1*kel*1)) );
+            estd = roundToNearest(d, 100);
+            $("#calc_estdose").val(estd + ' mg');
+            $("#mydose").val(estd);
+            $("#myinterval").val(intv);
+            $("#btnCalcFinal").trigger('click');
+            $("#mydose").focus().select();
+    	});
+    	
+    	$("#btnCalcFinal").on('click', function(ev) {
+    		ti = parseFloat($("#ti").val());
+    		tau = $("#myinterval").val();
+    		dose = $("#mydose").val();
+    		
+    		cpk = dose * (1 - Math.exp(-1 * kel * ti)) * (Math.exp(-1*kel*0)) /
+    				(ti * vd * kel * (1-Math.exp(-1*kel*tau)));
+    		console.log(cpk);
+    		$("#calc_pk").val(round(cpk, 2));
+    		ctr = cpk * Math.exp(-1 * kel * (tau - ti));
+    		$("#calc_tr").val(round(ctr, 2));
+    		mkkg = dose / patient.weight;
+    		$("#calc_mgkg").val(round(mkkg, 1));
+    	});
+    	
+    	$("#mydose,#myinterval").on('change', function(ev) {
+    		$("#btnCalcFinal").trigger('click');
+    	});
+    });
+    </script>
+</body>
+</html>

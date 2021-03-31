@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Magic Calculator</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css">
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+    <h1 class="page-header">TPN/PPN Calculator</h1>
+    <div class="container-fluid">
+    	<div class="row">
+        <div class="col-sm-6">
+            <form class="form form-horizontal" id="demoform">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Demographics</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-sm-4">Type</label>
+                            <div class="radio col-sm-8">
+                                <label><input type="radio" name="ftype" value="tpn" checked="checked" id="ftype_tpn"> TPN</label>
+                                <label><input type="radio" name="ftype" value="ppn" id="ftype_ppn"> PPN</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtAge" class="col-sm-4">Age</label>
+                            <input type="text" class="col-sm-2" name="age" id="txtAge" class="text-input">
+                            <div class="col-sm-6"></div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-4">Sex</label>
+                            <div class="radio col-sm-8">
+                                <label><input type="radio" name="sex" value="M" checked="checked" id="chksex_m"> M</label>
+                                <label><input type="radio" name="sex" value="F" id="chksex_f"> F</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtHeight" class="col-sm-4">Height</label>
+                            <input type="text" class="col-sm-3" name="height" id="txtHeight">
+                            <div class="col-sm-5">
+                                <input type="radio" name="height-units" value="cm" checked="checked" id="chkht_cm"> cm
+                                <input type="radio" name="height-units" value="in" id="chkht_in"> in
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtWeight" class="col-sm-4">Weight</label>
+                            <input type="text" class="col-sm-3" name="Weight" id="txtWeight">
+                            <div class="col-sm-5">
+                                <input type="radio" name="weight-units" value="kg" checked="checked" id="chkwt_kg"> kg
+                                <input type="radio" name="weight-units" value="lbs" id="chkwt_lb"> lb
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="txtSf" class="col-sm-4">Stress Factor</label>
+                            <input type="text" class="col-sm-3" name="sf" value="1.2" id="txtSf">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtProtein" class="col-sm-4">Protein Req</label>
+                            <input type="text" class="col-sm-3" name="protein" value="1" id="txtProtein">
+                            <div class="col-sm-5">gm/kg/day</div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3">Goal CHO:Fat Ratio</label>
+                            <div class="col-sm-9">
+                                <label><input type="radio" name="goal-fat" value="0.3" checked="checked"> 70 : 30</label>
+                                <label><input type="radio" name="goal-fat" value="0.4"> 60 : 40 (COPD <b>OR</b> Diabetes)</label>
+                                <label><input type="radio" name="goal-fat" value="0.5"> 50 : 50 (COPD <b>AND</b> Diabetes)</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-4">
+                                <button type="button" id="btnCalcDemos" class="btn btn-primary btn-xs">Calculate</button>
+                                <button type="button" id="btnResetData" class="btn btn-danger btn-xs">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-primary">
+                <div class="panel-heading">Calculated Info</div>
+                <div class="panel-body">
+                    <form class="form form-horizontal">
+                        <div class="form-group">
+                            <label class="col-sm-1">IBW</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="ibw" id="ibw">
+                            </div>
+                            <label class="col-sm-1">ABW</label>
+                             <div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="abw" id="abw">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-1">BEE</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="bee" id="bee">
+                            </div>
+                            <label class="col-sm-1">MEE</label>
+                            <div class="col-sm-4">
+                                <input type="text" class="calcDemoBox" name="mee" id="mee">
+                            </div>
+                        </div>
+                        <h4 style="text-decoration:underline;">Estimated Needs</h4>
+                        <div class="form-group">
+                        	<label class="col-sm-1">Fat</label>
+                        	<div class="col-sm-3">
+                        		<input type="text" class="calcDemoBox" name="fatreq" id="fatreq">
+                        	</div>
+                        	<label class="col-sm-1">Protein</label>
+                        	<div class="col-sm-3">
+                                <input type="text" class="calcDemoBox" name="protein" id="protein">
+                            </div>
+                        </div>
+                        <div class="form-group">
+	                        <label class="col-sm-1">CHO</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="calcDemoBox" name="choreq" id="choreq">
+                            </div>
+                        </div>
+                        <h4 style="text-decoration:underline;">Estimated Rates</h4>
+                        <div class="form-group">
+                        	<label class="col-sm-1">Fat</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="fatML" id="fatML">
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-1">CHO</label>
+                        	<label class="col-sm-1">5%</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="cho5" id="cho5" style="width:100%;">
+                        	</div>
+                        	<label class="col-sm-1">25%</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="cho25" id="cho25" style="width:100%;">
+                        	</div>
+                        	<label class="col-sm-1">35%</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="cho35" id="cho35" style="width:100%;">
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-1">AAs</label>
+                        	<label class="col-sm-1">4.25%</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="aa425" id="aa425" style="width:100%;">
+                        	</div>
+                        	<label class="col-sm-1">5%</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="aa5" id="aa5" style="width:100%;">
+                        	</div>
+                        	<label class="col-sm-1">7.5%</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="aa75" id="aa75" style="width:100%;">
+                        	</div>
+                        </div>
+                        <div class="form-group">
+                        	<label class="col-sm-2">Kabiven</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="kabi" id="kabi" style="width:100%;">
+                        	</div>
+                        	<label class="col-sm-2">Perikabiven</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="perikabi" id="perikabi">
+                        	</div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-12">
+        	<form id="finalform" class="form form-horizontal">
+	            <div class="panel panel-primary">
+	                <div class="panel-heading">Final Formulations</div>
+	                <div class="panel-body">
+	                	<div class="row">
+	                		<div class="col-sm-2"><b>ALL IN ONE:</b></div>
+	                		<div class="col-sm-2"><b>Fats:</b></div>
+	                		<div class="col-sm-2"><b>AA%:</b></div>
+	                		<div class="col-sm-2"><b>CHO%:</b></div>
+	                		<div class="col-sm-2"><b>Rate:</b></div>
+	                	</div>
+						<div class="row">
+							<div class="col-sm-2">
+								<label><input type="checkbox" name="finalallinone" value="kabi" id="chkKabi"> Kabiven</label>
+								<label><input type="checkbox" name="finalallinone" value="perikabi" id="chkPerikabi" disabled="disabled"> Perikabiven</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" name="finalfat" id="finalfat" size="4">mL/day
+							</div>
+							<div class="col-sm-2 kabi-disable">
+								<label><input disabled="disabled" type="radio" name="finalprot" value="0.0425" data-ftype="ppn"> 4.25%</label>
+								<label><input type="radio" name="finalprot" value="0.05" checked="checked" data-ftype="tpn"> 5%</label>
+								<label><input type="radio" name="finalprot" value="0.075" data-ftype="tpn"> 7.5%</label>
+							</div>
+							<div class="col-sm-2 kabi-disable">
+								<label><input disabled="disabled" type="radio" name="finalcho" value="0.05" data-ftype="ppn"> 5%</label>
+								<label><input type="radio" name="finalcho" value="0.25" checked="checked" data-ftype="tpn"> 25%</label>
+								<label><input type="radio" name="finalcho" value="0.35" data-ftype="tpn"> 35%</label>
+							</div>
+							<div class="col-sm-2">
+								<input type="text" name="finalrate" id="finalrate" size="3">mL/hr
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-12 text-center">
+								<button type="button" class="btn btn-primary btn-xs" id="btnCalcFinal">Calculate</button>
+							</div>
+						</div>
+						<hr class="thick-divider">
+						<table class="table table-condensed table-striped">
+							<thead>
+								<tr>
+									<th>Fat</th>
+									<th>AA-CHO</th>
+									<th>Rate</th>
+									<th>Kcal/day</th>
+									<th>Prot/day</th>
+									<th>CHO:Fat %</th>
+								</tr>
+							</thead>
+							<tbody id="formula-list">
+							
+							</tbody>
+						</table>
+	                </div>
+	            </div>
+            </form>
+        	</div>
+        </div>
+        
+        <div class="row">
+	        <div class="col-sm-12">
+	        	<div class="panel panel-primary">
+	        		<div class="panel-heading">Notes/Instructions</div>
+	        		<div class="panel-body">
+	        		<h2>TPN Instructions</h2>
+					Stolen from KP's instructions of 11/08. [<a href="#" onclick="$('#instruction').show();return false;">Show Instructions</a>]
+					<div class="infodiv" style="display:none;" id="instruction">
+						<ol>
+							<li>Make sure pt has an appropriate <b>indication</b> for TPN. Check box on TPN order form accordingly.</li>
+							<li>Check H&amp;P for co-morbidities and document on form. This will come in handy later.</li>
+							<li>Assign a stress factor
+								<table border="1" class="table table-condensed">
+									<tr>
+										<td>1.0 - 1.2</td>
+										<td>Minor surgery, Mild Infection</td>
+									</tr>
+									<tr>
+										<td>1.2 - 1.3</td>
+										<td>Major surgery, trauma</td>
+									</tr>
+									<tr>
+										<td>1.2 - 1.4</td>
+										<td>Moderate infection</td>
+									</tr>
+									<tr>
+										<td>1.4 - 1.5</td>
+										<td>Severe infection</td>
+									</tr>
+									<tr>
+										<td>1.1 - 1.3</td>
+										<td>Cancer</td>
+									</tr>
+								</table>
+							</li>
+							<li>Choose an amount of protein. See above.
+								<table class="table table-condensed" border="1">
+									<tr>
+										<td>gm/kg/day</td>
+										<td>Condition</td>
+									</tr>
+									<tr>
+										<td>0.9 - 1.0</td>
+										<td>No comorbidities</td>
+									</tr>
+									<tr>
+										<td>0.6 - 0.8</td>
+										<td>Renal dysfunction</td>
+									</tr>
+									<tr>
+										<td>1.2</td>
+										<td>Hemodialysis</td>
+									</tr>
+									<tr>
+										<td>1.3 - 1.7</td>
+										<td>Malnourished</td>
+									</tr>
+									<tr>
+										<td>1.5 - 2.0</td>
+										<td>Burn Victim</td>
+									</tr>
+								</table>
+							</li>
+							<li>Choose a carbohydrate:fat ratio</li>
+							<li>Choose a lipid formulation to start with (you can adjust this later)</li>
+							<li>Calculate BEE/MEE by hitting the "1. Calculate Patient Paramaters" button</li>
+							<li>Experiment with different rates/concentrations and choose "2. Test Formulation" to see if TPN meets needs</li>
+							<li>Concentration Limitations:
+								<table border="1" class="table table-condensed">
+									<tr>
+										<th>&nbsp;</th>
+										<th>Dextrose</th>
+										<th>Amino Acids</th>
+										<th>Lipids</th>
+									</tr>
+									<tr>
+										<td><b>TPN</b></td>
+										<td>25 - 35%</td>
+										<td>5 - 10%</td>
+										<td>No limitations</td>
+									</tr>
+									<tr>
+										<td><b>PPN</b></td>
+										<td>10%</td>
+										<td>3 - 4.25%</td>
+										<td>No limitations</td>
+									</tr>
+								</table>
+							</li>
+							<li>PPN should only be used when central line access is not an option. Usually you will need up to 175ml/hr in order to meet patient's needs.
+							This is generally too much fluid for most pts. Keep ~100-125 mL/hr. Don't go too high on K since given peripherally.</li>
+							<li>Electrolytes<br />
+								<table border="1" class="table table-condensed">
+									<tr>
+										<td>Renal Failure</td>
+										<td>Minimize K, Mg, Phos</td>
+									</tr>
+									<tr>
+										<td>CHF</td>
+										<td>Minimize Na</td>
+									</tr>
+									<tr>
+										<td>Critical Care</td>
+										<td>Keep i<sub>Ca</sub> between 1.10 - 1.15
+									</tr>
+									<tr>
+										<td>Zantac</td>
+										<td>If pt is on Zantac IVPB, you may DC and add to TPN instead</td>
+									</tr>
+									<tr>
+										<td>Vitamin K</td>
+										<td>All pts get tdis, even tdose on Coumadin</td>
+									</tr>
+								</table>
+							</li>
+							<li>Taper TPN to goal rate.</li>
+							<li>Choose SS insulin for all pts</li>
+							<li>Order labs.</li>
+							<li>Await tomorrow's labs to adjust your TPN!</li>
+						</ol>
+					</div>
+	        		</div>
+	        	</div>
+	        </div>
+        </div>
+    </div>
+
+    <script src="js/jquery-3.1.0.min.js"></script>
+    <script src="js/patient.js"></script>
+    <script src="js/code.js"></script>
+    <script>
+    	var calculated = false;
+        $(document).ready(function() {
+            $("#btnCalcDemos").on('click', function() {
+            	pntype = $("#demoform input[name='ftype']:checked").val();
+                sex = $("#demoform input[name='sex']:checked").val()
+                age = parseInt($("#txtAge").val());
+                height = parseFloat($("#txtHeight").val());
+                htunit = $("#demoform input[name='height-units']:checked").val()
+                weight = parseFloat($("#txtWeight").val());
+                wtunit = $("#demoform input[name='weight-units']:checked").val()
+                sf = parseFloat($("#txtSf").val());
+                prot = parseFloat($("#txtProtein").val());
+                goalfat = parseFloat($("#demoform input[name='goal-fat']:checked").val());
+                APP.TPN.ptinfo.setSex(sex);
+                APP.TPN.ptinfo.age = age;
+                APP.TPN.ptinfo.setHeight(height, htunit).setWeight(weight, wtunit);
+                APP.TPN.ptinfo.setABWFactor(0.4);
+                APP.TPN.ptinfo.calculateBEE().calculateMEE(sf).setProteinReq(prot);
+                // Update the Calculated Info display
+                $("#ibw").val(APP.TPN.ptinfo.ibw);
+                $("#abw").val(APP.TPN.ptinfo.abw);
+                $("#bee").val(APP.TPN.ptinfo.bee);
+                $("#mee").val(APP.TPN.ptinfo.mee);
+                $("#protein").val(APP.TPN.ptinfo.calcproteinreq + ' gm/day');
+
+                // Est fat = (fat ratio * total MEE) / (2kcal/mL for 20% lipids)
+                mee = APP.TPN.ptinfo.mee;
+                fatreq = parseFloat($("#demoform input[name='goal-fat']:checked").val());
+                fatcals = Math.floor(fatreq * mee);
+                $("#fatreq").val(fatcals + ' kcal/day');
+                fats = fatcals / 2;
+                $("#fatML").val(fats + ' mL/day');
+                // CHO = MEE - fatcals (for tpn)
+                // For ppn, need to add in protein kcal since AA concentration is so low to start with
+                if (pntype == 'tpn') {
+                	cho = mee - fatcals;
+                } else {
+                	cho = mee - fatcals - (3.4 * APP.TPN.ptinfo.calcproteinreq); 
+                }
+                $("#choreq").val(cho + ' kcal/day');
+                // Calculate the rates we'd need at each strength of CHO
+                chogm = cho / 4;	// 4 kcal/gm of cho 
+                $("#cho5").val( round((chogm / 0.05) / 24, 2) + ' mL/hr');
+                $("#cho25").val( round((chogm / 0.25) / 24, 2) + ' mL/hr');
+                $("#cho35").val( round((chogm / 0.35) / 24, 2) + ' mL/hr');
+                
+                protgm = APP.TPN.ptinfo.calcproteinreq;
+                $("#aa425").val( round((protgm / 0.0425) / 24, 2) + 'mL/hr');
+                $("#aa5").val( round((protgm / 0.05) / 24, 2) + ' mL/hr');
+                $("#aa75").val( round((protgm / 0.075) / 24, 2) + ' mL/hr');
+                
+                fatallowed = [250, 375, 500];
+                clofat = closest(fats, fatallowed);
+                $("#finalfat").val(clofat);
+                // Calculate kabiven rate
+                kabir = (mee / 0.850) / 24; // mL/hr
+                perikabir = (mee / 0.675) / 24; // mL/hr
+                console.log(kabir, perikabir);
+                $("#kabi").val(round(kabir,0));
+                $("#perikabi").val(round(perikabir, 0));
+                calculated = true;
+            });
+            
+            // Hide invalid options when you change from PPN to TPN and vice versa
+            $("#demoform input[name='ftype']").on('click', function(ev) {
+            	// Enable all options to start
+            	APP.TPN.setPNType(this.value);
+            	$('#finalform input[name="finalprot"]').attr('disabled', null).attr('checked', null);
+            	$('#finalform input[name="finalcho"]').attr('disabled', null).attr('checked', null);
+            	if (this.value == 'ppn') {
+            		$('#finalform input[name="finalprot"][value="0.05"]').attr('disabled', 'disabled');
+            		$('#finalform input[name="finalprot"][value="0.075"]').attr('disabled', 'disabled');
+            		$('#finalform input[name="finalcho"][value="0.25"]').attr('disabled', 'disabled');
+            		$('#finalform input[name="finalcho"][value="0.35"]').attr('disabled', 'disabled');
+            		$('#finalform input[name="finalprot"][value="0.0425"]').attr('checked', 'checked');
+            		$('#finalform input[name="finalcho"][value="0.05"]').attr('checked', 'checked');
+            		$("#chkKabi").attr('disabled', 'disabled');
+            		$("#chkPerikabi").attr('disabled', null);
+            	} else {
+            		$('#finalform input[name="finalprot"][value="0.0425"]').attr('disabled', 'disabled');
+            		$('#finalform input[name="finalcho"][value="0.05"]').attr('disabled', 'disabled');
+            		$('#finalform input[name="finalcho"][value="0.25"]').attr('checked', 'checked');
+            		$('#finalform input[name="finalprot"][value="0.05"]').attr('checked', 'checked');
+            		$("#chkPerikabi").attr('disabled', 'disabled');
+            		$("#chkKabi").attr('disabled', null);
+            	}
+            });
+            
+            $("#btnCalcFinal").on('click', function(ev) {
+            	if(!calculated) {
+            		alert('You have to enter patient demographics and hit Calculate first.');
+            		return false;
+            	}
+            	finaltable = $("#formula-list");
+            	fats = $("#finalfat").val();
+            	aa = parseFloat($("#finalform input[name='finalprot']:checked").val());
+            	cho = parseFloat($("#finalform input[name='finalcho']:checked").val());
+            	rate = parseFloat($("#finalrate").val());
+            	kabi = $("#chkKabi").get(0).checked;
+            	perikabi = $("#chkPerikabi").get(0).checked;
+            	if (rate == 0.0 || $("#finalrate").val() == '' || $("#finalrate").val() == null) {
+            		alert('You have to enter a rate!');
+            		return false;
+            	}
+            	APP.TPN.setFatVolume(fats);
+            	APP.TPN.setAAConcentration(aa);
+            	APP.TPN.setCHOConcentration(cho);
+            	if(kabi || perikabi) {
+         			APP.TPN.setTNA(kabi, perikabi);
+         		}
+            	APP.TPN.setRate(rate);
+         		
+            	// APP.TPN.printDebugInfo();
+            	var newrow = $("<tr>");
+            	if (kabi || perikabi) {
+            		newrow.append("<td colspan='2'>Kabi Product</td>");
+            	} else {
+            		newrow.append("<td>" + fats + " mL/day</td>");
+            		newrow.append("<td>" + aa*100 + '% - ' + cho*100 + '%</td>');
+            	}
+            	newrow.append("<td>" + rate + " mL/hr</td>");
+            	dailykcal = APP.TPN.dailykcal();
+            	kcalperkg = Math.floor(dailykcal / APP.TPN.ptinfo.getABW());
+            	kcalpertbw = Math.floor(dailykcal / APP.TPN.ptinfo.getWeight());
+            	newrow.append("<td>" + dailykcal + " (" + kcalperkg + " kcal/kg-ABW), " + 
+            			"(" + kcalpertbw + "kcal/kg-TBW)" + "</td>");
+            	dailyprot = APP.TPN.dailyprotein();
+            	protperky = Math.floor(dailyprot / APP.TPN.ptinfo.getABW() * 100) / 100;
+            	newrow.append("<td>" + dailyprot + " (" + protperky + " gm/kg-ABW)" + "</td>");
+            	fp = APP.TPN.getFatPercentage();
+            	chop = 100 - fp;
+            	newrow.append("<td>" + chop + ':' + fp + "</td>");
+            	finaltable.prepend(newrow.fadeIn());
+            });
+            
+            $("#btnSampleData").on('click', function(ev) {
+            	sampleData();
+            });
+            
+            $("#btnResetData").on('click', function(ev) {
+            	$("#formula-list").html('');
+            	$("input[type='text']").val('');
+            	calculated = false;
+            });
+            
+            $("#chkKabi, #chkPerikabi").on('click', function(ev) {
+            	if (this.checked) {
+            		$(".kabi-disable").addClass('redDisableTxt');
+            	} else {
+            		$(".redDisableTxt").removeClass('redDisableTxt');
+            	}
+            });
+        });
+    </script>
+</body>
+</html>

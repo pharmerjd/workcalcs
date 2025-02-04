@@ -134,6 +134,10 @@
                         	<div class="col-sm-2">
                         		<input type="text" class="calcDemoBox" name="cho5" id="cho5" style="width:100%;">
                         	</div>
+                            <label class="col-sm-1">15%</label>
+                        	<div class="col-sm-2">
+                        		<input type="text" class="calcDemoBox" name="cho15" id="cho15" style="width:100%;">
+                        	</div>
                         	<label class="col-sm-1">25%</label>
                         	<div class="col-sm-2">
                         		<input type="text" class="calcDemoBox" name="cho25" id="cho25" style="width:100%;">
@@ -201,6 +205,7 @@
 							</div>
 							<div class="col-sm-2 kabi-disable">
 								<label><input disabled="disabled" type="radio" name="finalcho" value="0.05" data-ftype="ppn"> 5%</label>
+                                <label><input type="radio" name="finalcho" value="0.15" checked="checked" data-ftype="tpn"> 15%</label>
 								<label><input type="radio" name="finalcho" value="0.25" checked="checked" data-ftype="tpn"> 25%</label>
 								<label><input type="radio" name="finalcho" value="0.35" data-ftype="tpn"> 35%</label>
 							</div>
@@ -409,6 +414,7 @@
                 // Calculate the rates we'd need at each strength of CHO
                 chogm = cho / 4;	// 4 kcal/gm of cho 
                 $("#cho5").val( round((chogm / 0.05) / 24, 2) + ' mL/hr');
+                $("#cho15").val( round((chogm / 0.15) / 24, 2) + ' mL/hr');
                 $("#cho25").val( round((chogm / 0.25) / 24, 2) + ' mL/hr');
                 $("#cho35").val( round((chogm / 0.35) / 24, 2) + ' mL/hr');
                 
